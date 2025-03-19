@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: 'playwright/tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -40,9 +40,19 @@ export default defineConfig({
     // },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    }
+      name: 'Production',
+      use: {
+        ...devices['Desktop Firefox'],
+        baseURL: 'https://conduit.bondaracademy.com'
+      }
+    },
+    // {
+    //   name: 'Staging',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     baseURL: 'https://conduit.bondaracademy.com',
+    //   }
+    // }
 
     // {
     //   name: 'webkit',

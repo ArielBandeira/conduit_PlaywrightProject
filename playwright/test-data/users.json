@@ -1,0 +1,12 @@
+{
+  "validUser1": {
+    "username": "marston_cowboy",
+    "email": "john_marston@domain.com",
+    "password": "johnnyBoy47"
+  },
+  "validUser2": {
+    "username": "morgan_cowboy",
+    "email": "arthur_morgan@domain.com",
+    "password": "ihatetb1910"
+  }
+}

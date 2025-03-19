@@ -6,10 +6,10 @@ export class SignUpPage {
     private emailLocator: Locator;
     private passwordLocator: Locator;
     private signUpButtonLocator: Locator;
-    private homePageLinkLocator: Locator;
-    private signInLinkLocator: Locator;
-    private signUpLinkLocator: Locator;
-    private haveAccountLinkLocator: Locator;
+    // private homePageLinkLocator: Locator;
+    // private signInLinkLocator: Locator;
+    // private signUpLinkLocator: Locator;
+    // private haveAccountLinkLocator: Locator;
     private errorMessages: Locator;
 
     // Locators
@@ -27,7 +27,7 @@ export class SignUpPage {
         await this.page.goto('/register');
     }
 
-    async fillSignUpForm(username = 'as', email = 'as', password = 'as') {
+    async fillSignUpForm(username: string, email: string, password: string) {
         await this.usernameLocator.fill(username);
         await this.emailLocator.fill(email);
         await this.passwordLocator.fill(password);
@@ -37,21 +37,21 @@ export class SignUpPage {
         await this.signUpButtonLocator.click();
     }
 
-    async clickHaveAccountLink() {
-        await this.haveAccountLinkLocator.click();
-    }
-
-    async clickHomeLink() {
-        await this.homePageLinkLocator.click();
-    }
-
-    async clickSignInLink() {
-        await this.signInLinkLocator.click();
-    }
-
-    async clickSignUpLink() {
-        await this.signUpLinkLocator.click();
-    }
+    // async clickHaveAccountLink() {
+    //     await this.haveAccountLinkLocator.click();
+    // }
+    //
+    // async clickHomeLink() {
+    //     await this.homePageLinkLocator.click();
+    // }
+    //
+    // async clickSignInLink() {
+    //     await this.signInLinkLocator.click();
+    // }
+    //
+    // async clickSignUpLink() {
+    //     await this.signUpLinkLocator.click();
+    // }
 
     async getErrorMessage() {
         await this.errorMessages.innerText();
