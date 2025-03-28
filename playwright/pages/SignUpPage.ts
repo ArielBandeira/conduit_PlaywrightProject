@@ -1,4 +1,4 @@
-import {Locator, Page} from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class SignUpPage {
     private page: Page;
@@ -19,7 +19,7 @@ export class SignUpPage {
         this.emailLocator = page.getByPlaceholder('Email');
         this.passwordLocator = page.getByPlaceholder('Password');
         this.signUpButtonLocator = page.getByRole('button', {name: 'Sign up'});
-        this.errorMessages = page.locator('.error-messages');
+        this.errorMessages = page.locator('app-list-errors').getByRole('listitem');
     }
 
     // Methods
@@ -53,8 +53,12 @@ export class SignUpPage {
     //     await this.signUpLinkLocator.click();
     // }
 
-    async getErrorMessage() {
-        await this.errorMessages.innerText();
+    async getEmailErrorMessage() {
+        return this.errorMessages.first().innerText();
+    }
+
+    async getUsernameErrorMessage() {
+        return this.errorMessages.last().innerText();
     }
 
     // Utils
