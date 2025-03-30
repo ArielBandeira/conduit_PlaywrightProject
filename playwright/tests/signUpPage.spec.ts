@@ -110,7 +110,6 @@ test.describe("SignUpPage", (): void => {
          expect(await signUpPage.getUsernameErrorMessage()).toContain("username has already been taken");
 
      });
-// test('Verify that User is not able to see password values', async ({ page }) => {});
 // test('Verify that User is not able to Sign Up with an invalid email format', async ({ page }) => {});
 // test('Verify that User is not able to Sign Up with a short password', async ({ page }) => {});
 
