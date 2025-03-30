@@ -1,3 +1,6 @@
+
+### 🚧 In progress
+
 # 🚀 Conduit Automation Project
 This project contains end-to-end automation for a demo website named Conduit (from [Conduit](https://conduit.bondaracademy.com/)).
 This project uses Playwright with TypeScript and the Page Object Model (POM) design pattern.
