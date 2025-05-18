@@ -2,26 +2,18 @@ import {expect, test} from "@playwright/test";
 import { faker } from '@faker-js/faker';
 import { SignUpPage } from "../pages/SignUpPage";
 import * as fs from "node:fs";
-import { log } from "node:console";
 
 
 test.describe("SignUpPage", (): void => {
     let signUpPage: SignUpPage;
-    let data: {
-        validUser1: {
-            username: any;
-            email: any;
-            password: any;
-        };
-    };
 
     test.beforeEach(async ({ page }) => {
         console.log('Before tests');
         signUpPage = new SignUpPage(page);
         await signUpPage.goTo();
         //TODO
-        // Add a more sophisticated way to handle test data
-        data = JSON.parse(fs.readFileSync(`./playwright/test-data/users.json`, 'utf-8'));
+        // Add a more sophisticated way to handle test declaration
+
     });
 
     test('TC01: Verify that user is able to successfully sign up with valid credentials', async ({ page }) => {
@@ -116,7 +108,6 @@ test.describe("SignUpPage", (): void => {
 
     });
 
-    // This test should fail
     test('TC04: Verify that user is unable to sign up with an invalid email format', async ({ page }) => {
 
         // Arrange
