@@ -1,4 +1,3 @@
-
 ### 🚧 In progress
 
 # 🚀 Conduit Automation Project
@@ -14,7 +13,7 @@ This project uses Playwright with TypeScript and the Page Object Model (POM) des
 - Basic test coverage for core features of the Conduit application:
     - User Registration and Login
     - Article Creation, Editing, and Deletion
-    - Favoriting/Unfavoriting Articles
+    - Favoring/Unfavorite Articles
     - Viewing Global Feed and User Feed
     - Adding Comments on Articles
     - User Logout
@@ -27,6 +26,10 @@ This project uses Playwright with TypeScript and the Page Object Model (POM) des
 
 > Follow these steps to install and run the tests locally.
 
+### Prerequisites
+- Node.js (v16 or higher)
+- npm (v7 or higher)
+
 ### 📦 Install Playwright (using official setup)
 
 ```bash
@@ -38,9 +41,14 @@ This project uses Playwright with TypeScript and the Page Object Model (POM) des
   npx playwright test
 ```
 #### Run Tests in UI Mode
-
+Run tests with a graphical interface to debug or observe test execution visually.
 ```bash
   npx playwright test --ui
+```
+
+#### Run a Specific Test
+```bash
+npx playwright test tests/example.spec.ts
 ```
 
 ### View HTML Test Report
@@ -50,15 +58,11 @@ This project uses Playwright with TypeScript and the Page Object Model (POM) des
 ---
 
 ## 📈 Future Improvements
-✔️Add test tagging and grouping by suite (e.g., smoke, regression, etc.)
-
-✔️I️mplement custom error handling and logging
-
-✔️Integrate CI pipelines (e.g., GitHub Actions, GitLab CI)
-
-✔️Add API testing support
-
-✔️Increase test coverage for edge cases and negative scenarios
+- [ ] Add test tagging and grouping by suite (e.g., smoke, regression, etc.)
+- [ ] Implement custom error handling and logging
+- [ ] Integrate CI pipelines (e.g., GitHub Actions, GitLab CI)
+- [ ] Add API testing support
+- [ ] Increase test coverage for edge cases and negative scenarios
 
 ## 📬 Contact
 
@@ -73,3 +77,6 @@ If you have questions or suggestions, feel free to reach out.
 
 ## 📢 Final Notes
 This project is a work in progress. Improvements and feedback are always appreciated. Happy Testing! 🚀
+
+## 📝 License
+This project is licensed under the MIT License. See the LICENSE file for details.
