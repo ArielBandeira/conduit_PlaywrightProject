@@ -10,7 +10,9 @@ export class SignUpPage {
     // private signInLinkLocator: Locator;
     // private signUpLinkLocator: Locator;
     // private haveAccountLinkLocator: Locator;
-    private errorMessages: Locator;
+    private emailErrorMessage: Locator;
+    private usernameErrorMessage: Locator;
+    private passwordErrorMessage: Locator;
 
     // Locators
     constructor(page: Page) {
@@ -19,7 +21,9 @@ export class SignUpPage {
         this.emailLocator = page.getByPlaceholder('Email');
         this.passwordLocator = page.getByPlaceholder('Password');
         this.signUpButtonLocator = page.getByRole('button', {name: 'Sign up'});
-        this.errorMessages = page.locator('app-list-errors').getByRole('listitem');
+        this.emailErrorMessage = page.getByRole('listitem').getByText('email');
+        this.usernameErrorMessage = page.getByRole('listitem').getByText('username');
+        this.passwordErrorMessage = page.getByRole('listitem').getByText('password');
     }
 
     // Methods
@@ -31,6 +35,10 @@ export class SignUpPage {
         await this.usernameLocator.fill(username);
         await this.emailLocator.fill(email);
         await this.passwordLocator.fill(password);
+    }
+
+    async getPasswordField() {
+        return this.passwordLocator;
     }
 
     async clickSignUpButton() {
@@ -54,11 +62,15 @@ export class SignUpPage {
     // }
 
     async getEmailErrorMessage() {
-        return this.errorMessages.first().innerText();
+        return this.emailErrorMessage.innerText();
     }
 
     async getUsernameErrorMessage() {
-        return this.errorMessages.last().innerText();
+        return this.usernameErrorMessage.innerText();
+    }
+
+    async getPasswordErrorMessage() {
+        return this.passwordErrorMessage.innerText();
     }
 
     // Utils
