@@ -1,0 +1,166 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: SignUpPage >> Verify that User is not able to Sign Up with an invalid email format
+- Location: C:\Users\Pichau\IdeaProjects\Playwright\conduit_project\playwright\tests\signUpPage.spec.ts:119:10
+
+# Error details
+
+```
+Error: expect(received).not.toContain(expected) // indexOf
+
+Expected substring: not "/register"
+Received string:        "https://conduit.bondaracademy.com/register"
+    at C:\Users\Pichau\IdeaProjects\Playwright\conduit_project\playwright\tests\signUpPage.spec.ts:134:33
+```
+
+# Page snapshot
+
+```yaml
+- navigation:
+  - link "conduit"
+  - list:
+    - listitem:
+      - link "Home"
+    - listitem:
+      - link "Sign in"
+    - listitem:
+      - link "Sign up"
+- heading "Sign up" [level=1]
+- paragraph:
+  - link "Have an account?"
+- list
+- group:
+  - group:
+    - textbox "Username" [disabled]: Harvey67
+  - group:
+    - textbox "Email" [disabled]: invalidemailformat
+  - group:
+    - textbox "Password" [disabled]: dQRA625Jy_1exfr
+  - button "Sign up" [disabled]
+- contentinfo:
+  - link "conduit"
+  - text: © 2025. An interactive learning project from
+  - link "RealWorld OSS Project"
+  - text: . Code licensed under MIT. Hosted by
+  - link "Bondar Academy"
+  - text: .
+```
+
+# Test source
+
+```ts
+   34 |
+   35 |         // Act
+   36 |         await signUpPage.clickSignUpButton();
+   37 |
+   38 |         // Assert
+   39 |         expect(page.url()).toContain('https://conduit.bondaracademy.com/');
+   40 |         await expect(page.getByText('Global Feed')).toBeVisible();
+   41 |         await expect(page.locator("a[href='/profile/" + username + "']")).toBeVisible();
+   42 |
+   43 |     });
+   44 |
+   45 |      test('Verify that user is not able to Sign Up with an already registered Email', async ({ page }) => {
+   46 |
+   47 |          // Arrange
+   48 |          // Create a user and sign up
+   49 |          const username = faker.internet.username();
+   50 |          const email = faker.internet.email();
+   51 |          const password = faker.internet.password();
+   52 |
+   53 |          await signUpPage.fillSignUpForm(username, email, password);
+   54 |          await signUpPage.clickSignUpButton();
+   55 |
+   56 |          // Manually logout
+   57 |          //TODO
+   58 |          // Update this code so when there is a page object with an utility to facilitate loggin out
+   59 |          //Go to profile
+   60 |          await expect(page.getByText('Global Feed')).toBeVisible();
+   61 |
+   62 |          // Click Edit Profile Settings
+   63 |          await page.locator("a[href='/settings']").click();
+   64 |          await expect(page.getByRole('heading', { name: 'Your Settings' })).toBeVisible();
+   65 |
+   66 |          // Click Logout button
+   67 |          await page.getByRole('button').last().click();
+   68 |
+   69 |
+   70 |          // Act
+   71 |          // Try to crete the same user
+   72 |          await signUpPage.goTo();
+   73 |          await signUpPage.fillSignUpForm(faker.internet.username(), email, password);
+   74 |          await signUpPage.clickSignUpButton();
+   75 |
+   76 |          // Assert
+   77 |          // Verify that the correct message is displayed
+   78 |          expect(await signUpPage.getEmailErrorMessage()).toContain("email has already been taken");
+   79 |
+   80 |      });
+   81 |
+   82 |      test('Verify that User is not able to Sign Up with an already registered Username', async ({ page }) => {
+   83 |
+   84 |          // Arrange
+   85 |          // Create a user and sign up
+   86 |          const username = faker.internet.username();
+   87 |          const email = faker.internet.email();
+   88 |          const password = faker.internet.password();
+   89 |
+   90 |          await signUpPage.fillSignUpForm(username, email, password);
+   91 |          await signUpPage.clickSignUpButton();
+   92 |
+   93 |          // Manually logout
+   94 |          //TODO
+   95 |          // Update this code so when there is a page object with an utility to facilitate loggin out
+   96 |          //Go to profile
+   97 |          await expect(page.getByText('Global Feed')).toBeVisible();
+   98 |
+   99 |          // Click Edit Profile Settings
+  100 |          await page.locator("a[href='/settings']").click();
+  101 |          await expect(page.getByRole('heading', { name: 'Your Settings' })).toBeVisible();
+  102 |
+  103 |          // Click Logout button
+  104 |          await page.getByRole('button').last().click();
+  105 |
+  106 |          // Act
+  107 |          // Try to crete the same user
+  108 |          await signUpPage.goTo();
+  109 |          await signUpPage.fillSignUpForm(username, faker.internet.email(), password);
+  110 |          await signUpPage.clickSignUpButton();
+  111 |
+  112 |          // Assert
+  113 |          // Verify that the correct message is displayed
+  114 |          expect(await signUpPage.getUsernameErrorMessage()).toContain("username has already been taken");
+  115 |
+  116 |      });
+  117 |
+  118 |      // This test should fail
+  119 |      test('Verify that User is not able to Sign Up with an invalid email format', async ({ page }) => {
+  120 |
+  121 |          // Arrange
+  122 |          // Create a user and fill sign up form
+  123 |          const username = faker.internet.username();
+  124 |          const email = "invalidemailformat";
+  125 |          const password = faker.internet.password();
+  126 |
+  127 |          await signUpPage.fillSignUpForm(username, email, password);
+  128 |
+  129 |          // Click sign up button
+  130 |          await signUpPage.clickSignUpButton();
+  131 |
+  132 |          // Assert
+  133 |          // Verify that user is not able to sign up
+> 134 |          expect(page.url()).not.toContain('/register');
+      |                                 ^ Error: expect(received).not.toContain(expected) // indexOf
+  135 |
+  136 |      });
+  137 |
+  138 | // test('Verify that User is not able to Sign Up with a short password', async ({ page }) => {});
+  139 |
+  140 | });
+```
