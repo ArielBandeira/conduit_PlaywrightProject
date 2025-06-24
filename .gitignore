@@ -5,5 +5,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /.idea
-/allure-report/
-/allure-results/
+allure-report/
+allure-results/
+/.github
+.vscode/

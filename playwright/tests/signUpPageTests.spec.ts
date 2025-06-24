@@ -1,7 +1,6 @@
 import {expect, test} from "@playwright/test";
 import { faker } from '@faker-js/faker';
 import { SignUpPage } from "../pages/SignUpPage";
-import * as fs from "node:fs";
 
 
 test.describe("SignUpPage", (): void => {
@@ -19,17 +18,18 @@ test.describe("SignUpPage", (): void => {
     test('TC01: Verify that user is able to successfully sign up with valid credentials', async ({ page }) => {
 
         // Arrange
-        let username = faker.internet.username({ firstName: 'Jane', lastName: 'Doe'});
+        // TODO
+        const username = faker.internet.username({ firstName: 'Je', lastName: 'Doe'});
         const email = faker.internet.email();
         const password = faker.internet.password();
 
-        await signUpPage.fillSignUpForm(username, email, password);
-
         // Act
-        await signUpPage.clickSignUpButton();
+        await signUpPage.createAccount(username, email, password);
 
         // Assert
         expect(page.url()).toContain('https://conduit.bondaracademy.com/');
+        //TODO
+        // This line fails when using 'run until failure'
         await expect(page.getByText('Global Feed')).toBeVisible();
         await expect(page.locator("a[href='/profile/" + username + "']")).toBeVisible();
 
@@ -68,6 +68,8 @@ test.describe("SignUpPage", (): void => {
 
         // Assert
         // Verify that the correct message is displayed
+        //TODO
+        // This line fails when using 'run until failure'
         expect(await signUpPage.getEmailErrorMessage()).toContain("email has already been taken");
 
     });
@@ -167,9 +169,6 @@ test.describe("SignUpPage", (): void => {
 
         // Assert
         // Verify that user is not able to sign up
-        console.log(signUpPage.getEmailErrorMessage);
-        console.log(signUpPage.getUsernameErrorMessage);
-
         expect(await signUpPage.getEmailErrorMessage()).toContain("email can't be blank");
         expect(await signUpPage.getUsernameErrorMessage()).toContain("username can't be blank");
         expect(await signUpPage.getPasswordErrorMessage()).toContain("password can't be blank");
@@ -177,14 +176,15 @@ test.describe("SignUpPage", (): void => {
 
     });
 
-    test('TC07: Verify that user is presented with a password field that is hidden by default', async ({ page }) => {
+    test('TC07: Verify that user is presented with a password field that is hidden by default', async () => {
 
         // Arrange
-        // Fill sign up form
+        // Create a user and fill sign up form
         const username = faker.internet.username();
         const email = faker.internet.email();
         const password = faker.internet.password();
-
+        // Act
+        // Fill sign up form
         await signUpPage.fillSignUpForm(username, email, password);
 
         // Assert

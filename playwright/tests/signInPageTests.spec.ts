@@ -6,14 +6,15 @@ import * as fs from "node:fs";
 
 test.describe('SignInPage', () => {
 
-    let signInPage: SignInPage;
-    let data: {
+    interface UserData {
         validUser1: {
-            username: any;
-            email: any;
-            password: any;
+            username: string;
+            email: string;
+            password: string;
         };
     };
+    let signInPage: SignInPage;
+    let data: UserData;
 
     test.beforeEach(async ({ page }) => {
 
@@ -22,7 +23,7 @@ test.describe('SignInPage', () => {
         await signInPage.goTo();
         //TODO
         // Add a more sophisticated way to handle test data
-        data = JSON.parse(fs.readFileSync(`./playwright/test-data/users.json`, 'utf-8'));
+        data = JSON.parse(fs.readFileSync(`./playwright/test-data/users.json`, 'utf-8')) as UserData;
 
     });
 
@@ -123,7 +124,7 @@ test.describe('SignInPage', () => {
 
     });
 
-    test('TC13: Verify that user is presented with a password field that is hidden by default on the sign in page', async ({ page }) => {
+    test('TC13: Verify that user is presented with a password field that is hidden by default on the sign in page', async () => {
         
         // Arrange
         // Fill sign in form
