@@ -3,15 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "pretest": "tsc --noEmit && eslint playwright/tests/**",
+    "test": "playwright test",
+    "test:until-failure": "bash -c 'while npx playwright test \"$@\"; do :; done'"
+
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@faker-js/faker": "^9.6.0",
+    "@eslint/js": "^9.29.0",
+    "@faker-js/faker": "^9.8.0",
     "@playwright/test": "^1.52.0",
     "@types/node": "^22.13.10",
-    "allure-playwright": "^3.2.1"
+    "allure-playwright": "^3.2.1",
+    "eslint": "^9.29.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.1"
   }
 }

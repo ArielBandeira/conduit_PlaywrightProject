@@ -1,6 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 
 export class SignUpPage {
+    
+    // Variables declaration
     private page: Page;
     private usernameLocator: Locator;
     private emailLocator: Locator;

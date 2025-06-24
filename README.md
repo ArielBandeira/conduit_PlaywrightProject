@@ -51,6 +51,12 @@ Run tests with a graphical interface to debug or observe test execution visually
 npx playwright test tests/example.spec.ts
 ```
 
+#### Run Test Until Failure
+This will keep running your signUpPageTests.spec.ts file until a test fails.  
+```bash
+npm run test:until-failure -- playwright/tests/example.spec.ts
+```
+
 ### View HTML Test Report
 ```bash
   npx playwright show-report

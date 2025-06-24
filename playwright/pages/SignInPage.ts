@@ -1,6 +1,9 @@
+import { Page, Locator } from '@playwright/test';
+
 export class SignInPage {
 
     // Variables declaration
+    private page: Page;
     emailLocator: Locator;
     passwordLocator: Locator;
     signInButtonLocator: Locator;
