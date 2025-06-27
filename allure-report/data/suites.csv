@@ -1,5 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2434","Verify that User is not able to Sign Up with an invalid email format","Production","Thu Apr 03 11:46:36 GFT 2025","failed","Thu Apr 03 11:46:38 GFT 2025","SignUpPage","signUpPage.spec.ts","",""
-"","4277","Verify that user is able to Sign Up with valid credentials","Production","Thu Apr 03 11:46:36 GFT 2025","passed","Thu Apr 03 11:46:40 GFT 2025","SignUpPage","signUpPage.spec.ts","",""
-"","5204","Verify that user is not able to Sign Up with an already registered Email","Production","Thu Apr 03 11:46:36 GFT 2025","passed","Thu Apr 03 11:46:41 GFT 2025","SignUpPage","signUpPage.spec.ts","",""
-"","5218","Verify that User is not able to Sign Up with an already registered Username","Production","Thu Apr 03 11:46:36 GFT 2025","passed","Thu Apr 03 11:46:41 GFT 2025","SignUpPage","signUpPage.spec.ts","",""
