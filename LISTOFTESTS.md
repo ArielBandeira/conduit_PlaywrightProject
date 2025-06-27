@@ -47,7 +47,6 @@
 
 - **TC21:** Verify that no articles appear in "Your Feed" for new users.
 - **TC22:** Verify behavior when the article list fails to load (simulated network failure).
-- **TC23:** Verify that a tag with no associated articles shows an empty state.
-- **TC24:** Verify that invalid article data is handled gracefully.
+- **TC23:** Verify that invalid article data is handled gracefully.
 
 ---
