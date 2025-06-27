@@ -9,4 +9,3 @@ allure-report/
 allure-results/
 /.github
 .vscode/
-.gitlab-ci.yml
