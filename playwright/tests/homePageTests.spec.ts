@@ -175,7 +175,7 @@ test.describe('HomePage', () => {
 
         // Arrange
         // Simulate network failure for articles API
-        //await page.route('**/api/articles*', route => route.abort());
+        await page.route('**/api/articles*', route => route.abort());
 
         // Act
         await homePage.globalFeedLink.click();
@@ -183,44 +183,28 @@ test.describe('HomePage', () => {
         // Assert
         // Expect empty state
         await expect(homePage.articleCardTagList).not.toBeVisible();
-        //await expect(page.getByText('Loading articles...')).toBeVisible();
+        await expect(page.getByText('Loading articles...')).toBeVisible();
 
     });
 
-    // test('TC23: Verify that a tag with no associated articles shows an empty state.', async () => {
-    //     await signInPage.goTo();
-    //     await signInPage.fillSignInForm(data.validUser1.email, data.validUser1.password);
-    //     await signInPage.clickSignInButton();
-    //     // Use a tag that is unlikely to exist
-    //     const uniqueTag = `notag_${Date.now()}`;
-    //     await page.evaluate((tag) => {
-    //         const tagList = document.querySelector('.tag-list');
-    //         if (tagList) {
-    //             const tagEl = document.createElement('a');
-    //             tagEl.className = 'tag-pill tag-default';
-    //             tagEl.textContent = tag;
-    //             tagList.appendChild(tagEl);
-    //         }
-    //     }, uniqueTag);
-    //     await page.getByText(uniqueTag).click();
-    //     await expect(page.getByText('No articles are here... yet.')).toBeVisible();
-    // });
+    test('TC23: Verify that invalid article data is handled gracefully.', async ({ page }) => {
+        
+        // Arrange
+        // Simulate invalid article data by intercepting and returning malformed data
+        await page.route('**/api/articles*', page => {
+            page.fulfill({
+                status: 200,
+                contentType: 'application/json',
+                body: JSON.stringify({ articles: [{ title: null, description: null }], articlesCount: 1 })
+            });
+        });
 
-    // test('TC24: Verify that invalid article data is handled gracefully.', async () => {
-    //     await signInPage.goTo();
-    //     await signInPage.fillSignInForm(data.validUser1.email, data.validUser1.password);
-    //     await signInPage.clickSignInButton();
-    //     // Simulate invalid article data by intercepting and returning malformed data
-    //     await page.route('**/api/articles*', route => {
-    //         route.fulfill({
-    //             status: 200,
-    //             contentType: 'application/json',
-    //             body: JSON.stringify({ articles: [{ title: null, description: null }], articlesCount: 1 })
-    //         });
-    //     });
-    //     await homePage.globalFeedLink.click();
-    //     // Expect the UI to not crash and show a fallback or empty state
-    //     await expect(homePage.articleCardTitle).not.toBeVisible();
-    // });
+        // Act
+        await homePage.globalFeedLink.click();
+        // Expect the UI to not crash and show a fallback or empty state
+
+        // Assert
+        await expect(homePage.articleCardTitle).not.toBeVisible();
+    });
 
 });
