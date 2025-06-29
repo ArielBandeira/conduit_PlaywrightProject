@@ -1,0 +1,31 @@
+stages:
+  - lint
+  - build
+  - test
+
+lint:
+  image: node:latest
+  stage: lint
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+    - npm run pretest
+
+create_file:
+  image: alpine
+  stage: build
+  script:
+    - echo "Building ..."
+    - mkdir build
+    - touch build/somefile.txt
+  artifacts:
+    paths:
+      - build/
+
+test_file:
+  image: alpine
+  stage: test
+  script:
+    - test -f build/somefile.txt

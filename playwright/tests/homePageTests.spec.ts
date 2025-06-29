@@ -20,7 +20,7 @@ test.describe('HomePage', () => {
     let signUpPage: SignUpPage;
     let data: UserData;
 
-    test.beforeEach(({ page }) => {
+    test.beforeEach(async ({ page }) => {
         console.log('Before tests');
         homePage = new HomePage(page);
         signInPage = new SignInPage(page);
@@ -28,9 +28,9 @@ test.describe('HomePage', () => {
         // Load test data only once and reuse the type
         data = JSON.parse(fs.readFileSync(`./playwright/test-data/users.json`, 'utf-8')) as UserData;
 
-        signInPage.goTo();
-        signInPage.fillSignInForm(data.validUser1.email, data.validUser1.password);
-        signInPage.clickSignInButton();
+        await signInPage.goTo();
+        await signInPage.fillSignInForm(data.validUser1.email, data.validUser1.password);
+        await signInPage.clickSignInButton();
 
     });
 
@@ -111,7 +111,7 @@ test.describe('HomePage', () => {
 
         // Wait for the articles to be filtered
         const filteredLocator = homePage.getArticlesByTag(firstTag);
-        await filteredLocator.first().waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+        await filteredLocator.first().waitFor({ state: 'visible', timeout: 5000 });
 
         // Assert
         // Get count after filtering
@@ -137,12 +137,12 @@ test.describe('HomePage', () => {
         await homePage.yourFeedLink.click();
 
         const articles = homePage.getArticlesByTag('');
-        await articles.first().waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+        await articles.first().waitFor({ state: 'visible', timeout: 5000 });
         await expect(homePage.yourFeedLink).toHaveClass(/active/);
 
         // Switch to Global Feed
         await homePage.globalFeedLink.click();
-        await articles.first().waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+        await articles.first().waitFor({ state: 'visible', timeout: 5000 });
         await expect(homePage.globalFeedLink).toHaveClass(/active/);
 
     });
@@ -191,8 +191,8 @@ test.describe('HomePage', () => {
         
         // Arrange
         // Simulate invalid article data by intercepting and returning malformed data
-        await page.route('**/api/articles*', page => {
-            page.fulfill({
+        await page.route('**/api/articles*', async route => {
+            await route.fulfill({
                 status: 200,
                 contentType: 'application/json',
                 body: JSON.stringify({ articles: [{ title: null, description: null }], articlesCount: 1 })
