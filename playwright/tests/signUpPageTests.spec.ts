@@ -19,7 +19,7 @@ test.describe("SignUpPage", (): void => {
 
         // Arrange
         // TODO
-        const username = faker.internet.username({ firstName: 'Je', lastName: 'Doe'});
+        const username = faker.internet.username({ lastName: 'Doe'});
         const email = faker.internet.email();
         const password = faker.internet.password();
 
@@ -31,6 +31,7 @@ test.describe("SignUpPage", (): void => {
         //TODO
         // This line fails when using 'run until failure'
         await expect(page.getByText('Global Feed')).toBeVisible();
+        await page.waitForLoadState('domcontentloaded');
         await expect(page.locator("a[href='/profile/" + username + "']")).toBeVisible();
 
     });
