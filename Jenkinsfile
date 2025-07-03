@@ -1,7 +1,8 @@
 
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent any {
+    agent any 
+    stages {
         stage('Verify tooling') {
             steps {
                 sh '''
