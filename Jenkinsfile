@@ -1,12 +1,44 @@
 
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'node:22.17.0-alpine3.22' } }
+    agent any 
     stages {
-        stage('build') {
+        stage('Verify tooling') {
             steps {
-                sh 'node --version'
+                sh '''
+                    docker version
+                    docker info
+                    docker compose version
+                    curl --version
+                '''
             }
+        }
+        stage('Prune Docker Data') {
+            steps {
+                sh 'docker system prune -a --volumes -f'
+            }
+        }
+        stage('Start container') {
+            steps {
+                sh 'docker compose up -d --no-color --wait'
+                sh 'docker compose ps'
+            }
+        }
+        stage('Install dependencies') {
+            steps {
+                sh 'docker compose exec -T app npm ci'
+            }
+        }
+        stage('Run Playwright tests') {
+            steps {
+                sh 'docker compose exec -T app npx playwright test'
+            }
+        } 
+    }
+    post {
+        always {    
+            sh 'docker compose down --remove-orphans -v'
+            sh 'docker compose ps'
         }
     }
 }
