@@ -50,3 +50,27 @@
 - **TC23:** Verify that invalid article data is handled gracefully.
 
 ---
+//TODO
+## ✅ Test Cases – Editor Page
+
+### 🔐 Positive Test Cases
+
+- **TC24:** Verify that clicking on "New Article +" button from the Home Page redirects the user to the Editor page (`[URL]/editor`).
+- **TC25:** Verify that the Editor page displays the top header menu similar to other pages.
+- **TC26:** Verify that the Editor page contains the following input fields:  
+  - Name (Article title)  
+  - Summary ("What's this article about")  
+  - Text field ("Write your article (in markdown)")  
+  - Tags ("Enter tags")
+- **TC27:** Verify that the "Publish Article" button is displayed.
+- **TC28:** Verify that the user is able to successfully create a new article with valid inputs in all fields and clicking "Publish Article" redirects to the correct article page (`[URL]/article/[Article-title]-[ID]`).
+- **TC29:** Verify that tags entered are displayed correctly in the published article.
+
+### 🚫 Negative Test Cases
+
+- **TC30:** Verify that user cannot publish an article if the "Name" field is left blank.
+- **TC31:** Verify that user cannot publish an article if the "Summary" field is left blank.
+- **TC32:** Verify that user cannot publish an article if the "Text field" is left blank.
+- **TC33:** Verify that publishing an article without tags is still allowed (if business logic permits) or shows an appropriate validation message (if required).
+- **TC34:** Verify that user receives an error if an invalid character set is entered in the "Tags" field (if restrictions apply).
+- **TC35:** Verify that system handles network failure during article publishing gracefully without creating duplicate or partial articles.
