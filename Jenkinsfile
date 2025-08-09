@@ -2,6 +2,10 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent any 
+    environment {
+        // Add Docker Desktop's bin to PATH
+        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+    }
     stages {
         stage('Verify tooling') {
             steps {
